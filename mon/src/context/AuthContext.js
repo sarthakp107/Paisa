@@ -1,0 +1,22 @@
+import { createContext, useReducer } from "react";
+
+export const AuthContext = createContext();
+export const authReducer = (state ,aciton) => {
+    switch(aciton.type){
+        default:
+            return state
+    }
+}
+export const AuthContextProvider = ({children}) => {
+
+    const [state , dispatch] = useReducer(authReducer , {
+        user:null
+    })
+
+    // dispatch({type : 'LOG_IN'})
+    return (
+        <AuthContext.Provider value={{...state, dispatch}}>
+            { children }
+        </AuthContext.Provider>
+    )
+}
