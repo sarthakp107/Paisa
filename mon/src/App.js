@@ -4,13 +4,18 @@ import Home from "./pages/home/Home.js";
 import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
 import Navbar from "./components/Navbar.js";
+import { useAuthContext } from "./hooks/useAuthContext.js";
+import { AuthContext } from "./context/AuthContext.js";
+
 
 
 
 function App() {
+  const {authIsReady} = useAuthContext();
   return (
+    <div className="App">
+    {authIsReady && (
     <BrowserRouter>
-      <div className="App">
         <Navbar />
         <Routes>
           <Route path="/" element={<Home/>}/>
@@ -18,8 +23,9 @@ function App() {
           <Route path="/login" element={<Login/>}/>
           <Route path="/signup" element={<Signup/>}/>
         </Routes>
-      </div>
     </BrowserRouter>
+  )}
+  </div>
   );
 }
 
