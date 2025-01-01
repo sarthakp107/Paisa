@@ -3,6 +3,8 @@ import { createContext, useReducer } from "react";
 export const AuthContext = createContext();
 export const authReducer = (state ,aciton) => {
     switch(aciton.type){
+        case 'LOGIN':
+            return {...state, user: action.payload}
         default:
             return state
     }
@@ -13,7 +15,6 @@ export const AuthContextProvider = ({children}) => {
         user:null
     })
 
-    // dispatch({type : 'LOG_IN'})
     return (
         <AuthContext.Provider value={{...state, dispatch}}>
             { children }
