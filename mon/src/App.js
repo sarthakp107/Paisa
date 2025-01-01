@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from 'react-router'
+import { BrowserRouter, Routes, Route , Navigate} from 'react-router'
 import Home from "./pages/home/Home.js";
 import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
@@ -11,17 +11,17 @@ import { AuthContext } from "./context/AuthContext.js";
 
 
 function App() {
-  const {authIsReady} = useAuthContext();
+  const {authIsReady , user} = useAuthContext();
   return (
     <div className="App">
     {authIsReady && (
     <BrowserRouter>
         <Navbar />
         <Routes>
-          <Route path="/" element={<Home/>}/>
+          <Route path="/" element={user ? <Home/> : <Navigate to="/login"/>}/>
           <Route path="*" element={<Home/>}/>
-          <Route path="/login" element={<Login/>}/>
-          <Route path="/signup" element={<Signup/>}/>
+          <Route path="/login" element={!user ? <Login/> : <Navigate to="/"/>}/>
+          <Route path="/signup" element={!user ? <Signup/> : <Navigate to="/"/>}/>
         </Routes>
     </BrowserRouter>
   )}
