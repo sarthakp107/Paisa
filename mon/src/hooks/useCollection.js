@@ -2,13 +2,17 @@
 import React, { useEffect, useState } from 'react'
 import {projectFirestore } from "../firebase/config" 
 
-export const useCollection = (collection) => {
+export const useCollection = (collection , query) => {
 
     const [documents, setDocuments] = useState(null);
     const [error, setError] = useState(null);
 
     useEffect(() => {
         let ref = projectFirestore.collection(collection);
+
+        if(query){
+            ref = ref.where(...query);
+        }
 
         const unsubscribe = ref.onSnapshot((snapshot) => { //listens real time data
             let results = [];
