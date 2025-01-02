@@ -2,7 +2,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 import {projectFirestore } from "../firebase/config" 
 
-export const useCollection = (collection , _query) => {
+export const useCollection = (collection, _query, _orderBy) => {
 
     const [documents, setDocuments] = useState(null);
     const [error, setError] = useState(null);
@@ -10,12 +10,16 @@ export const useCollection = (collection , _query) => {
     //if we not using ref hook -> infinite loop in useEffect
     //_query is an array and is DIFFERENT on every function call
     const query = useRef(_query).current
+    const orderBy = useRef(_orderBy).current
 
     useEffect(() => {
         let ref = projectFirestore.collection(collection);
 
         if(query){
             ref = ref.where(...query);
+        }
+        if(orderBy){
+            ref = ref.orderBy(...orderBy)
         }
 
         const unsubscribe = ref.onSnapshot((snapshot) => { //listens real time data
@@ -34,7 +38,7 @@ export const useCollection = (collection , _query) => {
         //unsubscribe on unmount
         return () => unsubscribe(); //will no longer get the snapshot and update it after we move on to the next new page
 
-    } , [collection , query]);
+    } , [collection , query, orderBy]);
 
     return {documents, error}
     
