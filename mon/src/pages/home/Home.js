@@ -1,12 +1,14 @@
 import React from 'react'
 import styles from './Home.module.css'
 import TransactionForm from './TransactionForm'
-import { useAuthContext } from '../../hooks/useAuthContext'
+import { useAuthContext } from '../../hooks/useAuthContext.js'
 
 
 export default function Home() {
 
-  const { user } = useAuthContext()
+  const { user } = useAuthContext();
+  console.log('user in home:', user);
+  console.log('UID in home:', user.uid);
   return (
     <div className={styles.container}>
       <div className={styles.content}>
@@ -16,7 +18,7 @@ export default function Home() {
 
       <div className={styles.sidebar}>
         
-        <TransactionForm uid= {user.id}/>
+        <TransactionForm uid= {user.uid}/>
       </div>
 
     </div>

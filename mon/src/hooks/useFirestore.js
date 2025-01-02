@@ -40,7 +40,7 @@ export const useFirestore = (collection) => {
         dispatch({type: 'IS_PENDING'});
 
         try {
-            console.log("Attempting to add document to collection:", collection);
+            // console.log("Attempting to add document to collection:", collection);
             const createdAt = timestamp.fromDate(new Date());
             const addedDocument = await ref.add({...doc , createdAt});
             dispatchIfNotCancelled({type: 'ADDED_DOCUMENT', payload: addedDocument})
