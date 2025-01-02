@@ -10,10 +10,10 @@ export const useCollection = (collection) => {
     useEffect(() => {
         let ref = projectFirestore.collection(collection);
 
-        const unsubscribe = ref.onSnapshot((snapshot) => {
+        const unsubscribe = ref.onSnapshot((snapshot) => { //listens real time data
             let results = [];
             snapshot.docs.forEach((doc) => {
-                results.push({...doc.data(), id: doc.id })//uid, name, amount .... id : id of the doc itself
+                results.push({...doc.data(), id: doc.id })//data = uid, name, amount .... id : id of the doc itself
             })
 
             setDocuments(results);
