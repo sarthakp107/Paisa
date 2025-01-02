@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { useFirestore } from '../../hooks/useFirestore.js'
 
 export default function TransactionForm({ uid }) {
-    console.log('UID in transaction form:', uid);
     const [name, setName] = useState('');
     const [amount, setAmount] = useState('');
     const { addDocument, response } = useFirestore('transactions'); //firestore makes it if not exists

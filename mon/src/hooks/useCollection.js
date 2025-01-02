@@ -1,11 +1,15 @@
 //subscribing to a real time data
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import {projectFirestore } from "../firebase/config" 
 
-export const useCollection = (collection , query) => {
+export const useCollection = (collection , _query) => {
 
     const [documents, setDocuments] = useState(null);
     const [error, setError] = useState(null);
+
+    //if we not using ref hook -> infinite loop in useEffect
+    //_query is an array and is DIFFERENT on every function call
+    const query = useRef(_query).current
 
     useEffect(() => {
         let ref = projectFirestore.collection(collection);
@@ -30,7 +34,7 @@ export const useCollection = (collection , query) => {
         //unsubscribe on unmount
         return () => unsubscribe(); //will no longer get the snapshot and update it after we move on to the next new page
 
-    } , [collection]);
+    } , [collection , query]);
 
     return {documents, error}
     
