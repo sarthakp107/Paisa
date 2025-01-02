@@ -11,7 +11,7 @@ export default function TransactionForm({ uid }) {
         e.preventDefault();
         console.log("add transaction submitted");
         addDocument({
-            uid, //uid: uid
+            // uid, //uid: uid
             name,
             amount
         });

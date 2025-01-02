@@ -42,7 +42,7 @@ export const useFirestore = (collection) => {
         try {
             console.log("Attempting to add document to collection:", collection);
             const createdAt = timestamp.fromDate(new Date());
-            const addedDocument = await ref.add({...doc, createdAt});
+            const addedDocument = await ref.add({...doc , createdAt});
             dispatchIfNotCancelled({type: 'ADDED_DOCUMENT', payload: addedDocument})
         } catch (err) {
             dispatchIfNotCancelled({type: 'ERROR', payload:err})
